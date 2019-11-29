@@ -27,7 +27,7 @@ namespace UDPGolf
                     Console.WriteLine("Received Swing Data is: " + receivedSwingData + " km/t.");
 
 
-
+                    //TODO connect with RestRNGolfService and post to static list
 
                 }
             }
