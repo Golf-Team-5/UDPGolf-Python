@@ -10,7 +10,9 @@ namespace UDPGolf
 {
     class Program
     {
+
         static string ServerURI = "http://localhost:52549/api/swingdata/";
+
         static void Main(string[] args)
         {
             //opsætning af UDP socket
@@ -30,9 +32,9 @@ namespace UDPGolf
                     Console.WriteLine("Received Swing Data is: " + receivedSwingData + " km/t.");
 
 
-                    //TODO connect with RestRNGolfService and post to static list
+                    //her kalder vi vores metode der sender SwingDataen til RestServicen
                     PostSwingData(new SwingData(Convert.ToDouble(receivedSwingData)));
-
+                    
                 }
             }
             catch (Exception e)
@@ -42,12 +44,19 @@ namespace UDPGolf
             }
         }
 
+        /// <summary>
+        /// This method takes our SwingData and sends it to our RestService as a JSON-string, and returns the response message.
+        /// </summary>
+        /// <param name="swingData"></param>
+        /// <returns></returns>
         public static async Task<string> PostSwingData(SwingData swingData)
         {
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
+                    //Metoden tager vores swingData og konverterer objektet til en Json-String, og pakker den derefter ind i en httpContent pakke,
+                    //som den sender til vores RestService, og derefter returnerer en response message som en string.
                     var jsonString = JsonConvert.SerializeObject(swingData);
                     StringContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await client.PostAsync(ServerURI, content);
