@@ -4,7 +4,7 @@ from time import sleep
 from socket import *
 
 # socket information
-serverPort = 6789
+serverPort = 78910
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 clientSocket.setsockopt(SOL_SOCKET, SO_REUSEPORT, 1)
 clientSocket.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
