@@ -4,9 +4,10 @@ from time import sleep
 from socket import *
 
 # socket information
-serverName = '192.168.104.124'
 serverPort = 6789
 clientSocket = socket(AF_INET, SOCK_DGRAM)
+clientSocket.setsockopt(SOL_SOCKET, SO_REUSEPORT, 1)
+clientSocket.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
 
 # implementering af senseHat, samt reset af displayet
 sense = SenseHat()
@@ -25,11 +26,11 @@ def SwingSpeedCalculation():
 
         average_swing_speed = abs(round((x + y + z / 3), 1))
 
-        if average_swing_speed > 1.5:
+        if average_swing_speed > 2:
             message = str(average_swing_speed)
-            clientSocket.sendto(message.encode(), (serverName, serverPort))
-            # print (average_swing_speed)
-        sleep(0.2)
+            clientSocket.sendto(message.encode(), ('<broadcast>', serverPort))
+            print (average_swing_speed)
+            sleep(5)
 
 # her kalder vi vores funktion
 SwingSpeedCalculation()
