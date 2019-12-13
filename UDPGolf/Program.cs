@@ -17,9 +17,9 @@ namespace UDPGolf
         {
             //opsætning af UDP socket
             //OBS: husk at ændre IP hvis nødvendigt!
-            UdpClient udpGolfServer = new UdpClient(6789);
+            UdpClient udpGolfServer = new UdpClient(7891);
             IPAddress ip = IPAddress.Parse("192.168.104.123");
-            IPEndPoint golfIpEndPoint = new IPEndPoint(IPAddress.Any, 78910);
+            IPEndPoint golfIpEndPoint = new IPEndPoint(ip, 7891);
             
             try
             { Console.WriteLine("Server is waiting for input");

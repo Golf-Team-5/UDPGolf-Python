@@ -4,7 +4,8 @@ from time import sleep
 from socket import *
 
 # socket information
-serverPort = 78910
+serverPort = 7891
+serverip = "192.168.104.123"
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 clientSocket.setsockopt(SOL_SOCKET, SO_REUSEPORT, 1)
 clientSocket.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
@@ -26,11 +27,12 @@ def SwingSpeedCalculation():
 
         average_swing_speed = abs(round((x + y + z / 3), 1))
 
-        if average_swing_speed > 2:
-            message = str(average_swing_speed)
-            clientSocket.sendto(message.encode(), ('<broadcast>', serverPort))
-            print (average_swing_speed)
-            sleep(5)
+        if sense.stick.get_events():
+            if average_swing_speed > 2:
+                message = str(average_swing_speed)
+                print (average_swing_speed)
+                clientSocket.sendto(message.encode(), (serverip, serverPort))
+                sleep(3)
 
 # her kalder vi vores funktion
 SwingSpeedCalculation()
