@@ -11,8 +11,8 @@ namespace UDPGolf
     class Program
     {
 
-        static string ServerURI = "http://localhost:52549/api/swingdata/";
-
+        static string LocalURI = "http://localhost:52549/api/swingdata/";
+        private static string ServerURI = "https://restrngolfservice.azurewebsites.net/api/swingdata/";
         static void Main(string[] args)
         {
             //opsætning af UDP socket
